@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="alert alert-primary" role="alert">
+       <h4 class="container text-center"> Username - {{ user.username }}, email: {{ user.email }}</h4></div><br>
+
+        <div style="display: flex; padding-left: 50px; padding-right: 50px;">
+        <img class="account-img" src="{{ user.profile.photo.url }}" style="width: 200px; height: 200px; border: 1px solid black;">
+        <div style="width: 80%; padding-left: 50px;">
+
+
+       <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4"> Update personal data
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-up-right-circle-fill" viewBox="0 0 16 16">
+                    <path d="M0 8a8 8 0 1 0 16 0A8 8 0 0 0 0 8zm5.904 2.803a.5.5 0 1 1-.707-.707L9.293 6H6.525a.5.5 0 1 1 0-1H10.5a.5.5 0 0 1 .5.5v3.975a.5.5 0 0 1-1 0V6.707l-4.096 4.096z"/>
+                </svg>
+                </legend>
+
+                {{ u_form|crispy }}
+                {{ p_form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Update</button>
+            </div>
+        </form><hr>
+        </div>
+    </div>
+
+{% endblock content %}
+
+
+
+

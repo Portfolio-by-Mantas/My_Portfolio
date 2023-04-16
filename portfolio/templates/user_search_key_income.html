@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="alert alert-primary" role="alert">
+    <h4>Detailed search for income</h4>
+</div>
+<br>
+
+
+<div style="padding-left: 100px; padding-right: 100px;">
+
+  <form method="get">
+
+    <div class="form-group">
+      <label for="keywords">Keywords:</label>
+      <input type="text" name="keywords" class="form-control" value="{{ request.GET.keywords }}">
+        <span class="form-text">You can enter multiple keywords at once, separate them with a comma and a space.</span>
+    </div>
+    <div class="form-group">
+      <label for="start_date">Start Date:</label>
+      <input type="date" name="start_date" class="form-control" value="{{ request.GET.start_date }}">
+    </div>
+    <div class="form-group">
+      <label for="end_date">End Date:</label>
+      <input type="date" name="end_date" class="form-control" value="{{ request.GET.end_date }}">
+    </div>
+       <span class="form-text">You can choose a start or end date or both at the same time.</span>
+      <hr>
+    <button type="submit" class="btn btn-primary">Search</button>
+      <a class="btn btn-primary" href="{% url 'search-income-key' %}">New search</a>
+      <button class="btn btn-primary" onclick="window.print();">Save tables in PDF</button>
+      <a class="btn btn-success" href="{% url 'user-banks' %}">List of banks</a>
+      <a class="btn btn-secondary" href="{% url 'user-income-lines' %}">List of income</a>
+      <a class="btn btn-dark" href="{% url 'home' %}">Home page</a>
+
+  </form>
+  <br>
+
+
+    <table class="table" >
+      <thead>
+      </thead>
+      <tbody>
+      <tr class="table-light">
+          <td>Selected <strong>{{ num_income_lines }}</strong> from <strong>{{ all_income_lines }}</strong> created income lines</td>
+          <td>Average amount: <strong>{{ avg_income }}</strong> EUR</td>
+          <td>Max. amount: <strong>{{ max_income }}</strong> EUR</td>
+          <td>Min. amount: <strong>{{ min_income }}</strong> EUR</td>
+          <td>Total amount: <strong>{{ total_income }}</strong> EUR</td>
+
+      </tr>
+
+      </tbody>
+    </table>
+    <br>
+
+</div>
+
+
+  {% if income %}
+<div style="padding-left: 100px; padding-right: 100px;">
+    <table class="table">
+      <thead>
+        <tr class="table-primary">
+              <th>Income date</th>
+              <th>Amount</th>
+              <th>Category</th>
+              <th>Source</th>
+              <th>Bank</th>
+              <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for line in income %}
+        <tr class="table-light" onclick="window.location.href='{% url 'income-line-detail' line.id %}';" style="cursor:pointer;">
+            <td>{{ line.date }}</td>
+            <td>{{ line.amount }}</td>
+            <td>{{ line.category }}</td>
+            <td>{{ line.source }}</td>
+            <td>{{ line.bank }}</td>
+            <td>{{ line.notes }}</td>
+            <td style="display:none;">{% url 'income-line-detail' line.id %}</td>
+
+          </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+      <li class="page-item">
+      <a class="page-link" href="?page=1" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+      </li>
+
+      {% if page_obj.has_previous %}
+            <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+        <span aria-hidden="true">&lsaquo;</span>
+      </a>
+      </li>
+      {% endif %}
+
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+      <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+        <span aria-hidden="true">&rsaquo;</span>
+      </a>
+      </li>
+      {% endif %}
+      <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+      </li>
+
+  </ul>
+</nav>
+</div>
+
+
+
+
+{% else %}
+    <div class="alert alert-primary" role="alert">
+        There are currently no income lines found.
+    </div>
+      {% endif %}
+
+{% endblock %}
+

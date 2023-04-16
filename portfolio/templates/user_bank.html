@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="alert alert-primary" role="alert">
+        <h4>Bank name: {{ banks.name }}, client: {{ banks.owner }}</h4>
+    </div>
+    <br>
+
+<div style="padding-left: 100px; padding-right: 100px;">
+<table class="table">
+        <thead>
+          <tr class="table-primary">
+              <th>Bank name</th>
+              <th>Account balance</th>
+              <th>Investment balance</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        <tr class="table-light">
+            <td>{{ banks.name }}</td>
+            <td>{{banks.balance}}</td>
+            <td>{{banks.investment}}</td>
+        </tr>
+        </tbody>
+</table>
+
+
+{% if banks.owner == user %}
+    <a class="btn btn-outline-danger" href="{% url 'bank-delete' object.id %}">Delete</a>
+    <a class="btn btn-outline-secondary" href="{% url 'bank-update' object.id %}">Update</a>
+    <a class="btn btn-outline-primary" href="{% url 'user-banks' %}">Back to the list</a>
+    <a class="btn btn-outline-dark" href="{% url 'home' %}">Home page</a>
+    {% endif %}
+        <hr>
+</div>
+
+<div class="container register">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+     <fieldset class="form-group">
+            <legend class="alert alert-primary"><h6>Enter details of the transfer</h6></legend><br>
+    {{ form.as_p }}
+    </fieldset>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit">Transfer</button>
+    </div>
+  </form>
+    <hr>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,19 @@
+<{% extends "base.html" %}
+
+{% block content %}
+    <div class="alert alert-primary" role="alert">
+        <h4>Company or seller: {{ sellers.seller }}, client: {{ sellers.client }}</h4>
+    </div>
+    <br>
+
+{% if sellers.client == user %}
+    <div class="form-group" style="padding-left: 50px; padding-right: 50px;">
+        <a class="btn btn-outline-danger" href="{% url 'seller-delete' object.id %}">Delete</a>
+        <a class="btn btn-outline-secondary" href="{% url 'seller-update' object.id %}">Update</a>
+        <a class="btn btn-outline-primary" href="{% url 'user-sellers' %}">Back to the list</a>
+        <a class="btn btn-outline-dark" href="{% url 'home' %}">Home page</a>
+        {% endif %}
+    </div>
+        <hr>
+
+{% endblock %}

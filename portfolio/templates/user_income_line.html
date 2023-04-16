@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="alert alert-primary" role="alert">
+        <h4>Income: {{ income_lines.category }} - {{ income_lines.source }}</h4>
+    </div>
+    <br>
+
+{% if income_lines.client == user %}
+<div class="form-group" style="padding-left: 50px; padding-right: 50px;">
+        <a class="btn btn-outline-danger" href="{% url 'income-line-delete' object.id %}">Delete</a>
+        <a class="btn btn-outline-secondary" href="{% url 'income-line-update' object.id %}">Update</a>
+        {% if pdf_url %}
+        <a class="btn btn-outline-info" href="{{ pdf_url }}">Open PDF</a>
+        {% endif %}
+        <a class="btn btn-outline-primary" href="{% url 'user-income-lines' %}">List of expenses</a>
+        <a class="btn btn-outline-primary" href="{% url 'search-income-key' %}">Detailed search</a>
+        <a class="btn btn-outline-dark" href="{% url 'home' %}">Home page</a>
+        {% endif %}
+</div>
+    <hr>
+
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="alert alert-primary" role="alert">
+    <h4>Archival report of expenses</h4>
+</div>
+<br>
+
+
+<form method="post" enctype="multipart/form-data" name="archive_form">
+<div style="padding-left: 150px; padding-right: 50px; display: inline-block; vertical-align: top;">
+      <fieldset class="form-group">
+        <legend class="alert alert-primary"><h6>Enter filters for the main statement of expenses</h6></legend><br>
+        {% csrf_token %}
+        {{ form.as_p }}
+      </fieldset>
+  <hr>
+    <span class="form-text">After selecting the filters, the main statement of expense lines will be generated.</span>
+    <hr>
+<div class="form-group">
+        <button class="btn btn-primary" type="submit">Filter</button>
+        <a class="btn btn-primary" href="{% url 'archive-expenses' %}">New filters</a>
+        <button class="btn btn-primary" onclick="window.print();">Save tables in PDF</button>
+        <a class="btn btn-secondary" href="{% url 'user-expenses-lines' %}">List of expenses</a>
+        <a class="btn btn-dark" href="{% url 'home' %}">Home page</a>
+      </div>
+</div>
+
+<div style="padding-left: 50px; padding-right: 150px; display: inline-block; vertical-align: top;">
+      <fieldset class="form-group">
+        <legend class="alert alert-primary"><h6>Enter filters for the archive report of monthly expenses</h6></legend><br>
+        {% csrf_token %}
+        {{ monthly_expenses_form.as_p }}
+      </fieldset>
+  <hr>
+    <span class="form-text">Select a time period and the filters for the monthly report.</span>
+    <span class="form-text">Key data will be generated for each month within selected time period.</span>
+    <span class="form-text">Category and source act as additional criteria in both forms.</span>
+    <span class="form-text">Same buttons for both forms.</span>
+
+</div>
+
+</form>
+<hr>
+
+
+<div style="padding-left: 50px; padding-right: 50px">
+
+    <table class="table" >
+      <thead>
+      </thead>
+      <tbody>
+      <tr class="table-light">
+          <td><strong>Key data from the main statement: </strong></td>
+          <td>Expenses lines: <strong>{{ num_expenses_lines }}</strong></td>
+          <td>Total amount: <strong>{{ total_expenses }}</strong> EUR</td>
+          <td>Average amount: <strong>{{ avg_expenses }}</strong> EUR</td>
+          <td>Max. amount: <strong>{{ max_expenses }}</strong> EUR</td>
+          <td>Min. amount: <strong>{{ min_expenses }}</strong> EUR</td>
+
+      </tr>
+
+      </tbody>
+    </table>
+    <br>
+</div>
+
+
+<div style="padding-left: 50px; padding-right: 50px; display: inline-block; vertical-align: top;">
+  {% if expenses %}
+  <table class="table">
+    <thead>
+      <tr class="table-primary">
+        <th>Expenses date</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Source</th>
+        <th>Bank</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for line in expenses %}
+          <tr class="table-light">
+            <td>{{ line.date }}</td>
+            <td>{{ line.amount }}</td>
+            <td class="column">{{ line.category }}</td>
+            <td class="column">{{ line.seller }}</td>
+            <td>{{ line.bank }}</td>
+          </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+
+{% else %}
+    <div class="alert alert-primary" role="alert">
+        There are currently no expenses lines found.
+    </div>
+      {% endif %}
+</div>
+
+
+<div style="padding-left: 0px; padding-right: 50px; display: inline-block; vertical-align: top;">
+
+{% if monthly_data %}
+    <table class="table">
+      <thead>
+        <tr class="table-primary">
+            <th>Month</th>
+            <th>Total amount</th>
+            <th>Avg. amount</th>
+            <th>Max. amount</th>
+            <th>Min. amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for month, data in monthly_data.items %}
+          <tr class="table-light">
+            <td>{{ month }}</td>
+            <td>{{ data.total_expenses|floatformat:2 }}</td>
+            <td>{{ data.avg_expenses|floatformat:2 }}</td>
+            <td>{{ data.max_expenses|floatformat:2 }}</td>
+            <td>{{ data.min_expenses|floatformat:2 }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+{% else %}
+    <div class="alert alert-primary" role="alert">
+        There are currently no data for archive display.
+    </div>
+      {% endif %}
+</div>
+
+<div style="padding-left: 0px; padding-right: 50px; display: inline-block; vertical-align: top;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="table-primary">Key data from the archive report:</th>
+      </tr>
+    </thead>
+    <tbody>
+
+     <tr class="table-light">
+        <td>Total lines of the period: <strong>{{ num_expenses_lines_period }}</strong></td>
+      </tr>
+     <tr class="table-light">
+        <td>Total amount of the period: <strong>{{ total_expenses_period }}</strong> EUR</td>
+      </tr>
+      <tr class="table-light">
+        <td>Average amount of lines: <strong>{{ avg_expenses_month }}</strong> EUR</td>
+      </tr>
+    <tr class="table-light">
+        <td>Max. amount of  lines: <strong>{{ max_expenses_month }}</strong> EUR</td>
+      </tr>
+    <tr class="table-light">
+        <td>Min. amount of lines: <strong>{{ min_expenses_month }}</strong> EUR</td>
+      </tr>
+    <tr class="table-light">
+        <td>Average monthly expenses: <strong>{{ avg_expenses_month_total }}</strong> EUR</td>
+      </tr>
+<tr class="table-light">
+        <td>Max. monthly expenses: <strong>{{ max_expenses_month_total }}</strong> EUR</td>
+      </tr>
+<tr class="table-light">
+        <td>Min. monthly expenses: <strong>{{ min_expenses_month_total }}</strong> EUR</td>
+      </tr>
+
+    </tbody>
+  </table>
+  <br>
+</div>
+
+
+{% endblock %}

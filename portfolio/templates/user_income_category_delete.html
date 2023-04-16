@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+    <div class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="alert alert-primary"><strong>Removal of income category details</strong></legend>
+                <br>
+            <h6 class="alert alert-primary">Are you sure you want to delete this income data?</h6>
+        </fieldset>
+
+        <div class="form-group" style="padding-left: 50px; padding-right: 50px;">
+            <button class="btn btn-outline-danger" type="submit">Yes, delete</button>
+            <a class="btn btn-outline-secondary" href="{% url 'income-category-detail' object.id %}">Back to the details</a>
+        </div>
+    </form>
+        <hr>
+    </div>
+{% endblock %}

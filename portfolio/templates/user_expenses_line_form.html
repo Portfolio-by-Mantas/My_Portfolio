@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="alert alert-primary" role="alert">
+    <h4>Expenses line form</h4>
+</div><br>
+
+    <div class="container register">
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="alert alert-primary"><h6>Enter details of the expenses line</h6></legend><br>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Save</button>
+            <a class="btn btn-dark" href="{% url 'user-expenses-lines' %}">Back to the list</a>
+            <a class="btn btn-dark" href="{% url 'home' %}">Home page</a>
+        </div>
+    </form>
+        <hr>
+    </div>
+{% endblock %}

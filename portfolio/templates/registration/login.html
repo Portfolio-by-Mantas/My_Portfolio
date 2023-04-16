@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="alert alert-primary" role="alert">
+        <h4>User login</h4>
+    </div>
+
+
+  {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+        <h4>Login error, please try again!</h4>
+    </div>
+  {% endif %}
+  
+  {% if next %}
+    {% if user.is_authenticated %}
+    <br><div class="alert alert-danger" role="alert">
+        <h4>You do not have access to this information. You must log in.</h4>
+    </div>
+    <br>
+    {% endif %}
+  {% endif %}
+
+  <div class="container register" style="padding-left: 500px; padding-right: 500px;">
+  <br>
+    <hr>
+    <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>Username: </td>
+        <td>{{ form.username }}</td>
+      </tr>
+      <tr>
+        <td>Password: </td>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table>
+
+    <br>
+    <input class="btn btn-primary" type="submit" value="Login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+<br>
+  <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="autoSizingCheck">
+      <label class="form-check-label" for="autoSizingCheck">
+        Remember me
+      </label>
+    </div>
+
+  <p><a href="{% url 'password_reset' %}" class="link-primary" style="text-decoration: none; color: inherit;">Did you forget your password?</a>
+  <hr>
+  </div>
+
+{% endblock %}

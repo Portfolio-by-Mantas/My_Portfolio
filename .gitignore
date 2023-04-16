@@ -1,0 +1,5 @@
+venv/
+.idea/
+portfolio/migrations/__pycache__/
+portfolio/__pycache__/
+mysite/__pycache__/

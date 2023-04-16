@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="alert alert-primary" role="alert">
+    <h4>{{ text }}
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="25" fill="currentColor" class="bi bi-briefcase-fill" viewBox="0 0 16 16">
+  <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5z"/>
+  <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z"/>
+</svg>
+    </h4>
+</div><hr>
+
+<figure class="text-center">
+  <blockquote class="blockquote">
+    <p>The only true wealth is the wealth of the soul. Everything else is fleeting and temporary.</p>
+  </blockquote>
+  <figcaption class="blockquote-footer">by Marcus Aurelius in <cite title="Source Title">Meditations</cite>
+  </figcaption>
+</figure>
+<hr>
+
+<div style="padding-left: 100px; padding-right: 50px; display: inline-block; vertical-align: top;">
+    <table class="table" >
+  <thead>
+     <tr><th class="table-primary">Select list:</th></tr>
+  </thead>
+  <tbody>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'user-income-lines' %}"><strong>My income</strong></a></td></tr>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'user-expenses-lines' %}"><strong>My expenses</strong></a></td></tr>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'user-income-categories' %}"><strong>My categories of income</strong></a></td></tr>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'user-income-sources' %}"><strong>My sources of income</strong></a></td></tr>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'user-expenses-categories' %}"><strong>My categories of expenses</strong></a></td></tr>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'user-sellers' %}"><strong>My sources of expenses</strong></a></td></tr>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'user-banks' %}"><strong>My banks</strong></a></td></tr>
+
+  </tbody>
+</table>
+</div>
+
+<div style="padding-left: 50px; padding-right: 50px; display: inline-block; vertical-align: top;">
+<table class="table" >
+  <thead>
+     <tr><th class="table-primary">Select option:</th></tr>
+  </thead>
+  <tbody>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'income-line-new' %}"><strong>Form income line</strong></a></td></tr>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'expenses-line-new' %}"><strong>Form expenses line</strong></a></td></tr>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'income-category-new' %}"><strong>Add category of income</strong></a></td></tr>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'income-source-new' %}"><strong>Add source of income</strong></a></td></tr>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'expenses-category-new' %}"><strong>Add category of expenses</strong></a></td></tr>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'seller-new' %}"><strong>Add source of expenses</strong></a></td></tr>
+     <tr><td class="nav-item"><a class="nav-link" href="{% url 'bank-new' %}"><strong>Add new bank</strong></a></td></tr>
+
+  </tbody>
+</table>
+</div>
+
+
+<div style="padding-left: 50px; padding-right: 50px; display: inline-block; vertical-align: top;">
+<table class="table" >
+  <thead>
+     <tr><th class="table-primary">Get data:</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="nav-item"><a class="nav-link" href="{% url 'search-income-key' %}"><strong>Detailed search for income</strong></a></td></tr>
+    <tr><td class="nav-item"><a class="nav-link" href="{% url 'search-expenses-key' %}"><strong>Detailed search for expenses</strong></a></td></tr>
+    <tr><td class="nav-item"><a class="nav-link" href="{% url 'search-income-select' %}"><strong>Comparative search for income</strong></a></td></tr>
+    <tr><td class="nav-item"><a class="nav-link" href="{% url 'search-expenses-select' %}"><strong>Comparative search for expenses</strong></a></td></tr>
+    <tr><td class="nav-item"><a class="nav-link" href="{% url 'archive-income' %}"><strong>Archival report of income</strong></a></td></tr>
+    <tr><td class="nav-item"><a class="nav-link" href="{% url 'archive-expenses' %}"><strong>Archival report of expenses</strong></a></td></tr>
+    <tr><td class="nav-item"><a class="nav-link" href="#"><strong>Something cool (for future endeavors)</strong></a></td></tr>
+
+  </tbody>
+</table>
+</div>
+
+{% endblock %}

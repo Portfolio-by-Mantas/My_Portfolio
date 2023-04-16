@@ -1,0 +1,29 @@
+.column {
+ max-width: 80px;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
+
+@media print{
+
+  @page {
+    size: landscape;
+  }
+
+  form {
+    display: none;
+  }
+  .btn {
+    display: none;
+  }
+  .no-print {
+    display: none;
+  }
+  .photo {
+    display: none;
+  }
+  .table {
+    display: block;
+  }
+ }

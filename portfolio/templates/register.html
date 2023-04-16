@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="alert alert-primary" role="alert">
+    <h4>Registration</h4>
+</div><br>
+    <div class="container register">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp">
+                <small id="usernameHelp" class="form-text text-muted">Create your username, at least 8 characters are required.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted">The address is required to reset the password.</small>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input name="password" type="password" class="form-control" id="password" aria-describedby="pwdHelp">
+                <small id="pwdHelp" class="form-text text-muted">At least 8 characters. It can't just be numbers.</small>
+            </div>
+            <div class="form-group">
+                <label for="password2">Repeat the password</label>
+                <input name="password2" type="password" class="form-control" id="password2" aria-describedby="pwd2Help">
+            </div>
+
+            <div class="col-12">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                <label class="form-check-label" for="invalidCheck">
+                    I have read and agree to the terms and conditions, <a href="{% url 'home'%}" class="link-primary"
+                                               style="text-decoration: none; color: inherit;">more about that.</a>
+                </label>
+                <div class="invalid-feedback">
+                    If you want to register, you must check this box.
+                </div>
+            </div>
+        </div><br>
+
+
+
+            <button type="submit" class="btn btn-primary register-button">Register</button>
+
+
+        </form>
+        <br>
+
+
+        <p>If you are already registered, <a href="{% url 'login'%}?next={{request.path}}" class="link-primary"
+                                               style="text-decoration: none; color: inherit;">login!</a></p>
+        <hr>
+    </div>
+
+{% endblock %}
