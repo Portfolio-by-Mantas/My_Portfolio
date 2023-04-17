@@ -1,5 +1,5 @@
 """
-This is a code file for models. The application consists of
+This is a code file for models, a part of Django application named 'portfolio'. The application consists of
 several models and fields that are used to track and manage income, expenses, bank account's, and related information
 for clients. Below each class is a brief description of the different model. The code also includes some additional
 features such as validation against entering negative amounts or greater dates than today's date. The __str__ method is
